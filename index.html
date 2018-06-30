@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pyschic Game</title>
-  <link rel="stylesheet" href="assets/css/style.css"> 
-  <script type="text/javascript" src="assets/javascript/game.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<h1>The Pyschic Game</h1>
-
-
-
-
-<body>
-
-  <div id="game">
-    <p>Guess what letter I'm thinking of!</p>
-  </div>
-
-
-
- 
-
+<body class="grid">
+    <h1 class="box-h1">Psychic Game</h1>
+    <ul class="box-ul">
+        <li>Guess what letter I'm thinking of!!</li>
+        <li class="wins">Wins: </li>
+        <li class="loses">Loses: </li>
+        <li class="count">Guesses left: </li>
+        <li class="target">Your guesses so far: </li>
+    </ul>
+ <!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="./assets/javascript/game.js"></script>
+<!-- Victor Quinn's Chance repository for random letters -->
+<script src="https://chancejs.com/chance.min.js"></script>
 </body>
-
 </html>

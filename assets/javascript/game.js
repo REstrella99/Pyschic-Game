@@ -1,49 +1,68 @@
-// Creates an array that lists out all of the options (Rock, Paper, or Scissors).
-var computerChoices = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+$(document).ready(() => {
 
-// Creating variables to hold the number of wins, losses, and ties. They start at 0.
-var wins = 0;
-var losses = 0;
-
-
-// This function is run whenever the user presses a key.
-document.onkeyup = function (event) {
-
-    // Determines which key was pressed.
-    var userGuess = event.key;
-
-    // Randomly chooses a choice from the options array. This is the Computer's guess.
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-    // Reworked our code from last step to use "else if" instead of lots of if statements.
-
-    // This logic determines the outcome of the game (win/loss/tie), and increments the appropriate number
-    if ((userGuess === "r") || (userGuess === "p") || (userGuess === "s")) {
-
-        if (userGuess === computerGuess) {
-            wins++;
-        } else if ((userGuess === "r") && (computerGuess === "p")) {
-            losses++;
-        } else if ((userGuess === "s") && (computerGuess === "r")) {
-            losses++;
-        } else if ((userGuess === "s") && (computerGuess === "p")) {
-            wins++;
-        } else if ((userGuess === "p") && (computerGuess === "r")) {
-            wins++;
-        } else if ((userGuess === "p") && (computerGuess === "s")) {
-            losses++;
-
+    // Variable declaration
+    let pick; // letter computer picks
+    let guess; // letter user guesses
+    let wins = 0;
+    let loses = 0;
+    let count = 9; // guesses so far
+    
+    $(".wins").text("Wins: " + wins );
+    $(".loses").text("Loses: " + loses);
+    $(".count").text("Guesses left: " + count)
+    
+    
+    
+    // 1. Computer picks random letter
+    pick = chance.character({ pool: 'abcdefghijklmnopqrstuvwxyz' });
+    // 2.  User inputs their guess, saves input to variable, & adds to document
+    document.addEventListener('keyup', function (event) {
+        // if (event.defaultPrevented) {
+        //     return;
+        // }
+    
+        //Here, we are gracefully degrading from event.key to event.keycode.
+        var key = event.key || event.keyCode;
+        //Listens for any keypress
+        if (key) {
+            $(".target").append(key);
+            guess = key;
+            count--;
+            $(".count").text("Guesses left: " + count);
+            console.log("Pick: " + pick)
+            checkIf();
         }
-
-        // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
-        var html =
-            "<p>You chose: " + userGuess + "</p>" +
-            "<p>The computer chose: " + computerGuess + "</p>" +
-            "<p>wins: " + wins + "</p>" +
-            "<p>losses: " + losses + "</p>" +
-
-
-            // Set the inner HTML contents of the #game div to our html string
-            document.querySelector("#game").innerHTML = html;
-    }
-};
+    });
+    
+    
+    // 3. Check if pick matches guesses,
+    //      a. if yes, increment wins
+    //      b. if no, increment loses
+    //      c. reagrdless, decrement guesses
+    
+    const checkIf = () => {
+        if (count === 0)
+        {
+            reset();
+            loses++;
+            $(".loses").text("Loses: " + loses);
+        }
+        else if (guess === pick)
+        {
+            wins++;
+            $(".wins").text("Wins: " + wins);
+            reset();
+        }  
+    };
+    
+    // 4. Check if guesses are at 0
+    //      a. if yes, reset win, losses, guesses
+    const reset = () => {
+          count = 9;
+          $(".count").text("Guesses left: " + count);
+          $(".target").text("Your guesses so far: ");
+          pick = chance.character({ pool: 'abcdefghijklmnopqrstuvwxyz' });
+    
+    };
+    
+    }); // END document.ready
